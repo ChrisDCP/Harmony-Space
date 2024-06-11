@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Harmony-Space",
-    "slug": "Harmony-Space",
+    "slug": "harmony-space",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "62ab92be-f195-421f-bade-b7193bffdf16"
+      }
+    },
+    "owner": "summersun"
   }
 }
