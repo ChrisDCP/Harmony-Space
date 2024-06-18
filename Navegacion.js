@@ -22,14 +22,13 @@ const Tab = createBottomTabNavigator()
 function MyStack(){
   return(
     <StackNavigator.Navigator
-      screenOptions={{headerShown:false}}
     >
 
       <StackNavigator.Screen
         name='home'
         component={HomeScreen}
-        
-      />
+        options={{headerShown:false}}      
+        />
 
       <StackNavigator.Screen
         name='login'
