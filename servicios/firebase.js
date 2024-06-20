@@ -1,5 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeApp } from 'firebase/app';
+import { initializeAuth } from 'firebase/auth';
 import { getDatabase, get, ref } from "firebase/database";
+import { getReactNativePersistence } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -7,7 +10,7 @@ import { getDatabase, get, ref } from "firebase/database";
 const firebaseConfig = {
     apiKey: "AIzaSyBTcDs_4cWkZfdTQyXpffMwRFfaPAU5GFo",
     authDomain: "harmony-space-59144.firebaseapp.com",
-    databaseURL: "https://harmony-space-59144-default-rtdb.firebaseio.com/:",
+    databaseURL: "https://harmony-space-59144-default-rtdb.firebaseio.com",
     projectId: "harmony-space-59144",
     storageBucket: "harmony-space-59144.appspot.com",
     messagingSenderId: "655190154989",
