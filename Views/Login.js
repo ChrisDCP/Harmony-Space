@@ -27,6 +27,7 @@ export default function Login() {
         email: email,
       });
       ToastAndroid.show("Regristro completo", ToastAndroid.CENTER, ToastAndroid.SHORT)
+      navigation.navigate('home')
       // Alert.alert('Registro éxitoso', 'Cuenta creada con éxito',[{text: 'OK', onPress: () => navigation.navigate('home')}]);
     }catch(error){
       if (error.code === 'auth/email-already-in-use') {
@@ -39,7 +40,7 @@ export default function Login() {
       }
     }
   }
-  
+
   async function loginService (){
     try {
       const userCredentials = await signInWithEmailAndPassword(auth, email, password)
