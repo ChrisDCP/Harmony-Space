@@ -27,3 +27,4 @@ const auth = initializeAuth(appFirebase, {
 const db = getDatabase(appFirebase);
 
 export {auth, db, get, ref};
+
