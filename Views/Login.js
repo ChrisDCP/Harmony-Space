@@ -42,6 +42,7 @@ export default function Login() {
         name: name,
         email: email,
       });
+
       ToastAndroid.show("Regristro completo", ToastAndroid.CENTER, ToastAndroid.SHORT)
       navigation.navigate('home')
       // Alert.alert('Registro éxitoso', 'Cuenta creada con éxito',[{text: 'OK', onPress: () => navigation.navigate('home')}]);
@@ -55,6 +56,10 @@ export default function Login() {
         ToastAndroid.show(error.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
       }
     }
+    setName('')
+    setEmail('')
+    setPassword('')
+    
   }
 
   async function loginService (){
