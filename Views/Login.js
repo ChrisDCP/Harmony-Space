@@ -3,7 +3,7 @@ import { View, Text, ToastAndroid, StyleSheet,
 import React, { useState } from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
-import { db,auth,ref,get } from '../servicios/firebase'
+import { db,auth,ref,get,set } from '../servicios/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 
 import { useNavigation } from '@react-navigation/native'
@@ -18,11 +18,16 @@ export default function Login() {
   const [showPass, setShowPass] = useState('')
   const navigation = useNavigation()
 
+  //switch select
+  const [swSelected, setswSelected] = useState('login')
+
   //functions
   //show pass
   const toggleShowPassword = () =>{
     setShowPass(!showPass)
   }
+
+  const showInputName = swSelected ==='register'
 
   async function singUp(){
     if (!name || !email || !password){
@@ -62,19 +67,44 @@ export default function Login() {
 
       if(snapShot.exists()){
         const userData = snapShot.val()
+        console.log('user data' ,userData)
         navigation.navigate('home')
       }
     } catch (error) {
-      ToastAndroid.show(error.message)
+      ToastAndroid.show(error.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
     }
   }
-  
   
 
   return (
     <SafeAreaView style={styles.vista} >
       <Image style={styles.imgLogo} source={require('../assets/HarmonySpace Logo.png')} />
       <View style={styles.formulario}>
+
+        <View style={styles.swContenedor}>
+          <TouchableOpacity
+            style={[styles.swButton,swSelected ==='login' ?
+              styles.swButtSelected : styles.swButtNonSelected]}
+            onPress={()=>setswSelected('login')}>
+            <Text style={styles.swButtText} >Iniciar sesion</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.swButton,swSelected ==='register' ?
+              styles.swButtSelected : styles.swButtNonSelected]}
+            onPress={()=>setswSelected('register')}>
+            <Text style={styles.swButtText} >Registrarse</Text>
+          </TouchableOpacity>
+        </View>
+
+        {showInputName && (
+        <TextInput
+        style={styles.inputsCredentials}
+        onChangeText={setName}
+        value={name}
+        placeholder='Nombre'
+        />)}
+
         <TextInput
           style={styles.inputsCredentials}
           onChangeText={setEmail}
@@ -101,11 +131,13 @@ export default function Login() {
         </View>
         <TouchableOpacity
           style={styles.submitButton}
+          onPress={swSelected === 'login'? loginService : singUp}
         >
-          <Text style={styles.submitText} >Iniciar sesion</Text>
+          <Text style={styles.submitText} >{swSelected==='login' ? 'Iniciar sesion' : 'Registrarse'}</Text>
         </TouchableOpacity>
 
-        <Text style={styles.contraseñaText}>¿Has olvidado la contraseña?</Text>
+          {!showInputName && (
+        <Text style={styles.contraseñaText}>¿Has olvidado la contraseña?</Text>)}
       </View>
 
     </SafeAreaView>
@@ -132,11 +164,39 @@ const styles = StyleSheet.create({
     alignItems:'center',
     bottom:15
   },
+  swContenedor:{
+    width:'80%',
+    backgroundColor:'#3a7fdf',
+    top:'-35%',
+    height:70,
+    borderRadius:40,
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  swButton:{
+    width:'50%',
+    height:'100%',
+    borderRadius:40,
+    justifyContent:'space-around',
+    alignItems:'center'
+  },
+  swButtSelected:{
+    backgroundColor:'#4bc9ff'
+  },
+  swButtNonSelected:{
+    backgroundColor:'#3a7fdf'
+  },
+  swButtText:{
+    color:'white',
+    fontSize:18,
+    fontWeight:'400',
+    textAlign:'center'
+  },
+  
   inputsCredentials:{
     borderColor:'black',
     borderBottomWidth:1,
     width:'80%',
-    marginTop:10,
     marginBottom:20
   },
   passContainer:{
@@ -145,7 +205,6 @@ const styles = StyleSheet.create({
     marginLeft:60
   },
   eyeIcon:{
-    margin:10,
     right:30
   },
   submitButton:{
@@ -153,7 +212,7 @@ const styles = StyleSheet.create({
     margin:10,
     padding:10,
     height:70,
-    width:200,
+    width:'60%',
     top:40,
     borderRadius:40,
     justifyContent:'center'
