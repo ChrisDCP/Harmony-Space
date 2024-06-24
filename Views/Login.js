@@ -1,5 +1,5 @@
 import { View, Text, ToastAndroid, StyleSheet, 
-    Image, TextInput, TouchableOpacity, SafeAreaView} from 'react-native'
+         Image, TextInput, TouchableOpacity, SafeAreaView} from 'react-native'
 import React, { useState } from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
@@ -35,7 +35,7 @@ export default function Login() {
       return;
     }
     try {
-      const useCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      const useCredentials = await createUserWithEmailAndPassword(auth, email.trim(), password);
       const user = useCredentials.user;
 
       await set(ref(db,"users/" + user.uid), {
@@ -64,7 +64,7 @@ export default function Login() {
 
   async function loginService (){
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+      const userCredentials = await signInWithEmailAndPassword(auth, email.trim(), password)
       const user = userCredentials.user
 
       const userRef = ref(db, 'users/' + user.uid)
@@ -78,6 +78,8 @@ export default function Login() {
     } catch (error) {
       ToastAndroid.show(error.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
     }
+    setEmail('')
+    setPassword('')
   }
   
 
