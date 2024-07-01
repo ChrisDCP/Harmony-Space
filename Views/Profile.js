@@ -9,7 +9,8 @@ export default function Profile() {
 
   return (
     <View style={{flex:1, alignItems:'center', backgroundColor:'#4bc9ff'}}>
-      <View style={styles.userProfileContainer}>
+      <TouchableOpacity style={styles.userProfileContainer}
+      onPress={()=>navigation.navigate('userProfileData')}>
         <Image source={require('../assets/UserIcon.png')}
           style={styles.userIcon}
         />
@@ -17,7 +18,7 @@ export default function Profile() {
           <Text style={styles.userName}>lorem ipsum</Text>
           <MaterialCommunityIcons name='account-edit-outline' size={25} color={'white'} />
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={{flex:1, width:'100%', alignItems:'center'}}>
         <TouchableOpacity style = {styles.menuButton}
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   userProfileContainer:{
-    width:'50%',
+    width:'60%',
     height:'20%',
     alignItems:'center',
     padding:10,
@@ -56,8 +57,9 @@ const styles = StyleSheet.create({
   },
   userIcon:{
     height:'70%',
-    width:'70%',
+    width:'60%',
     borderRadius:50,
+    resizeMode:'cover'
   },
   userName:{
     fontSize:25,

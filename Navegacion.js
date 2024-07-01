@@ -13,6 +13,7 @@ import Profile from './Views/Profile'
 //Stack Screens 
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
+
 // navigator const
 const StackNavigator = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -38,7 +39,7 @@ function MyStack(){
       <StackNavigator.Screen
       name='userProfileData'
       component={UserProfileData}
-      options={{presentation: 'modal'}}
+      options={{presentation: 'modal', headerTitleAlign:'center', title:'User Profile' }}
       />
 
     </StackNavigator.Navigator>
