@@ -1,13 +1,17 @@
 import { Alert, ToastAndroid } from "react-native";
-import { auth } from "./firebase";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut, onAuthStateChanged, getAuth } from "firebase/auth";
 
+const autentication = getAuth()
 export function logOut (){
-    onAuthStateChanged(auth, (user)=>{
-        if (user) {
-            signOut(auth)
-            .then(()=>{Alert.alert("sesion cerrada")})
-            .catch((error)=>{Alert.alert(error.message)})
-        }else Alert.alert("no hay usuario activo")
-    })
+    signOut(autentication)
+    .then(()=>{Alert.alert("sesion cerrada")})
+    .catch((error)=>{Alert.alert(error.message)})
 }
+
+export const IsUserActive = onAuthStateChanged(autentication, (user)=>{
+        if (user) {
+            return true
+        } else {
+            return false
+        }
+})

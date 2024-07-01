@@ -18,7 +18,7 @@ export default function Profile() {
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.menuButton}
-          onPress={()=>{signOut(auth).then(()=>{{Alert.alert("sesion cerrada")}})}}
+          onPress={()=>logOut()}
         >
           <Text style={{textAlign:'center',fontSize:20 }}>Log out</Text>
         </TouchableOpacity>
