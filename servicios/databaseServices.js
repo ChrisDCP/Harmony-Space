@@ -1,4 +1,5 @@
-import { Alert, ToastAndroid } from "react-native";
+import { Alert } from "react-native";
+import { auth } from "./firebase";
 import { signOut, onAuthStateChanged, getAuth } from "firebase/auth";
 
 const autentication = getAuth()
