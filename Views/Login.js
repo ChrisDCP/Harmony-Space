@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { db,auth,ref,get,set } from '../servicios/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -63,6 +63,10 @@ export default function Login() {
   }
 
   async function loginService (){
+    if (!email || !password){
+      ToastAndroid.show("Todos los campos deben estar completos", ToastAndroid.CENTER, ToastAndroid.SHORT)
+      return;
+    }
     try {
       const userCredentials = await signInWithEmailAndPassword(auth, email.trim(), password)
       const user = userCredentials.user
@@ -71,12 +75,18 @@ export default function Login() {
       const snapShot = await get(userRef)
 
       if(snapShot.exists()){
-        const userData = snapShot.val()
-        console.log('user data' ,userData)
+        ToastAndroid.show("Inicio de sesion con exito", ToastAndroid.SHORT, ToastAndroid.CENTER)
         navigation.navigate('home')
       }
     } catch (error) {
+      if (error.code === 'auth/invalid-credentials') {
+        ToastAndroid.show("la contraseña y el correo electronico no coinciden", ToastAndroid.CENTER, ToastAndroid.SHORT)
+      }
+      if (error.code === 'auth/invalid-email') {
+        ToastAndroid.show("ingrese un correo electronico valido", ToastAndroid.CENTER, ToastAndroid.SHORT)
+      }else{
       ToastAndroid.show(error.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
     }
     setEmail('')
     setPassword('')
