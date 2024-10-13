@@ -10,9 +10,12 @@ import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIc
 //tab Screens
 import HomeScreen from './Views/HomeScreen'
 import Profile from './Views/Profile'
+import ChatBot from './Views/ChatBot'
+import Relaxing from './Views/Relaxing'
 //Stack Screens 
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
+
 
 // navigator const
 const StackNavigator = createStackNavigator()
@@ -60,6 +63,30 @@ return(
         headerShown: false,
         tabBarIcon: ({color, size})=>(
           <MaterialComunityIcons name= 'home' color={color} size={size}/>
+        ),
+        tabBarLabel:''
+      }}
+    />
+
+    <Tab.Screen
+      name='chatbot'
+      component={ChatBot}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size})=>(
+          <MaterialComunityIcons name= 'robot-happy-outline' color={color} size={size}/>
+        ),
+        tabBarLabel:''
+      }}
+    />
+
+    <Tab.Screen
+      name='relaxing'
+      component={Relaxing}
+      options={{
+        headerShown: false,
+        tabBarIcon: ({color, size})=>(
+          <MaterialComunityIcons name= 'music-box-multiple-outline' color={color} size={size}/>
         ),
         tabBarLabel:''
       }}

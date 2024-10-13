@@ -13,7 +13,6 @@ export default function Login() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   //pass state
   const [showPass, setShowPass] = useState('')
   const navigation = useNavigation()
@@ -45,7 +44,7 @@ export default function Login() {
 
       ToastAndroid.show("Regristro completo", ToastAndroid.CENTER, ToastAndroid.SHORT)
       navigation.navigate('home')
-      // Alert.alert('Registro éxitoso', 'Cuenta creada con éxito',[{text: 'OK', onPress: () => navigation.navigate('home')}]);
+      
     }catch(error){
       if (error.code === 'auth/email-already-in-use') {
         ToastAndroid.show("El correo electronico ya esta en uso", ToastAndroid.CENTER, ToastAndroid.SHORT)
