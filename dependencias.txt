@@ -10,4 +10,6 @@
   >npm i nativewind
 
   >npm install @mui/material @emotion/react @emotion/styled
+
+  >npm install @google/generative-ai
     
