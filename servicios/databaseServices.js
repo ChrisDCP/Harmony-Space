@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
-import { auth, storage } from './firebase.js'; // Importa auth y storage desde tu archivo de configuración
+import { auth, storage } from './firebase.js'; 
 
 // Función para cerrar sesión
 export function logOut() {
