@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
     "@google/generative-ai": "^0.21.0",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-firebase/app": "^20.1.0",
@@ -22,6 +23,7 @@
     "expo": "^51.0.31",
     "expo-av": "~14.0.7",
     "expo-constants": "~16.0.2",
+    "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
     "firebase": "^10.12.2",
     "harmony-space": "file:",
