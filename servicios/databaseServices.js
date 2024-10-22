@@ -1,55 +1,34 @@
-import {useEffect, useState} from "react";
-import { auth, db, get, ref, set } from './firebase';
-import { signOut, onAuthStateChanged, getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { ref, getDownloadURL } from "firebase/storage";
+import { auth, storage } from './firebase.js'; // Importa auth y storage desde tu archivo de configuración
 
-const autentication = getAuth()
-
-
-export function logOut (){
-    signOut(autentication)
-    .then(()=>{Alert.alert("sesion cerrada")})
-    .catch((error)=>{Alert.alert(error.message)})
+// Función para cerrar sesión
+export function logOut() {
+  signOut(auth)
+    .then(() => {
+      Alert.alert("Sesión cerrada");
+    })
+    .catch((error) => {
+      Alert.alert(error.message);
+    });
 }
 
-export const IsUserActive = onAuthStateChanged(autentication, (user)=>{
-        if (user) {
-            return true
-        } else {
-            return false
-        }
-})
+// Verificación del estado del usuario
+export const IsUserActive = onAuthStateChanged(auth, (user) => {
+  return !!user;  // Devuelve true si el usuario está logueado, false si no
+});
 
-export function FetchUserData(){
+// Función para obtener la URL de un archivo de audio
+const getAudioUrl = async (audioPath) => {
+  const audioRef = ref(storage, audioPath); // Usa la instancia de storage desde firebaseConfig
+  try {
+    const downloadURL = await getDownloadURL(audioRef);
+    return downloadURL;
+  } catch (error) {
+    console.error("Error al obtener la URL de descarga:", error);
+    throw error; 
+  }
+};
 
-    const [name, setName] = useState('');
-    const [country, setCountry] = useState('');
-    const [age, setAge] = useState('');
-    const [sex, setSex] = useState('');
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-          setUser(currentUser);
-          fetchUserProfile(currentUser.uid);
-        }
-      }, []);
-
-      const fetchUserProfile = (uid) => {
-        const userRef = ref(db, `/users/${uid}`);
-        get(userRef)
-          .then(snapshot => {
-            const userData = snapshot.val();
-            if (userData) {
-              setName(userData.name || '');
-              setCountry(userData.country || '');
-              setAge(userData.age || '');
-              setSex(userData.sex || '');
-            }
-          })
-          .catch(error => {
-            console.error('Error fetching user profile: ', error);
-          });
-      };
-}
-
+export { getAudioUrl };
