@@ -15,6 +15,9 @@ const AudioButton = ({ title, onPress, color }) => (
 const Relaxing = () => {
   const [audioUrl, setAudioUrl] = useState('');
   const [selectedAudio, setSelectedAudio] = useState(null);
+  const [isVisible, setIsvisible]= useState(false)
+
+  const onClose =()=>{setIsvisible(false)}
 
   useEffect(() => {
     const fetchAudio = async () => {
@@ -31,7 +34,7 @@ const Relaxing = () => {
 
   const handleAudioPress = (title) => {
     setSelectedAudio(title);
-
+    setIsvisible(true)
   };
 
   return (
@@ -64,7 +67,7 @@ const Relaxing = () => {
           </View>
         </ScrollView>
         {selectedAudio && audioUrl && (
-          <Player audioUrl={audioUrl} title={selectedAudio} />
+          <Player audioUrl={audioUrl} title={selectedAudio} isVisible={isVisible} onClose={onClose}/>
         )}
       </SafeAreaView>
     </LinearGradient>

@@ -42,16 +42,14 @@ const Player = ({ audioUrl, title, imageUrl, isVisible, onClose }) => {
   return (
     <Modal visible={isVisible} animationType="slide" transparent={true}>
       <LinearGradient
-        colors={['#9C27B0', '#2196F3']}
+        colors={['#9C27B0', '#f1f1f1']}
         style={styles.container}
       >
         <View style={styles.header}>
           <TouchableOpacity onPress={onClose}>
             <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Ionicons name="menu" size={24} color="white" />
-          </TouchableOpacity>
+
         </View>
         <View style={styles.content}>
           <Image source={{ uri: imageUrl }} style={styles.image} />
