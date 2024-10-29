@@ -49,7 +49,7 @@ function MyStack(){
       <StackNavigator.Screen
       name='about'
       component={About}
-      options={{presentation: 'modal', headerTitleAlign:'center', title:'Acerca de nosotros' }}
+      options={{presentation: 'modal', title:'Acerca de nosotros' }}
       />
 
     </StackNavigator.Navigator>
