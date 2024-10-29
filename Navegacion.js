@@ -15,6 +15,7 @@ import Relaxing from './Views/Relaxing'
 //Stack Screens 
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
+import About from './Views/About'
 
 
 // navigator const
@@ -43,6 +44,12 @@ function MyStack(){
       name='userProfileData'
       component={UserProfileData}
       options={{presentation: 'modal', headerTitleAlign:'center', title:'User Profile' }}
+      />
+
+      <StackNavigator.Screen
+      name='about'
+      component={About}
+      options={{presentation: 'modal', headerTitleAlign:'center', title:'Acerca de nosotros' }}
       />
 
     </StackNavigator.Navigator>

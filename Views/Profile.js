@@ -33,6 +33,12 @@ export default function Profile() {
         >
           <Text style={{textAlign:'center',fontSize:20 }}>Log out</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style = {styles.menuButton}
+          onPress={()=>navigation.navigate('about')}
+        >
+          <Text style={{textAlign:'center',fontSize:20 }}>Acerca de nosotros</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
