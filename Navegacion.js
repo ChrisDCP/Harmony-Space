@@ -1,4 +1,5 @@
 import React from 'react'
+
 //navigation imports
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -12,6 +13,7 @@ import HomeScreen from './Views/HomeScreen'
 import Profile from './Views/Profile'
 import ChatBot from './Views/ChatBot'
 import Relaxing from './Views/Relaxing'
+import Test from './Views/Test'
 //Stack Screens 
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
@@ -52,6 +54,12 @@ function MyStack(){
       options={{presentation: 'modal', title:'Acerca de nosotros' }}
       />
 
+      <StackNavigator.Screen
+      name='test'
+      component={Test}
+      options={{presentation: 'modal', title:'test de estres' }}
+      />
+
     </StackNavigator.Navigator>
 
   )
@@ -61,6 +69,9 @@ function MyTabs(){
 return(
   <Tab.Navigator
     initialRouteName='homeScreen'
+    screenOptions={{
+      tabBarActiveTintColor:'#A57CFE'
+    }}
   >
 
     <Tab.Screen
