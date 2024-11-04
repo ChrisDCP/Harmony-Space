@@ -32,12 +32,35 @@ const StressTest = ({ userId }) => {
     }
   };
 
+  const getResultMessage = (finalScore) => {
+    if (finalScore <= 13) {
+      return {
+        title: "Nivel de Estrés Bajo",
+        message: "Te sientes bastante relajado en tu vida diaria. Mantente así y recuerda cuidar tu salud mental.",
+      };
+    } else if (finalScore <= 26) {
+      return {
+        title: "Nivel de Estrés Moderado",
+        message: "Experimentas un nivel moderado de estrés. Considera prácticas de manejo de estrés como la meditación o el ejercicio.",
+      };
+    } else {
+      return {
+        title: "Nivel de Estrés Alto",
+        message: "Es posible que estés experimentando un alto nivel de estrés. Considera hablar con un profesional para obtener apoyo adicional.",
+      };
+    }
+  };
+
   const progress = (currentQuestionIndex + 1) / questions.length;
 
   return (
     <View style={styles.container}>
       {completed ? (
-        <Text style={styles.resultText}>Puntaje final: {score}</Text>
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultTitle}>{getResultMessage(score).title}</Text>
+          <Text style={styles.resultScore}>Puntaje final: {score}</Text>
+          <Text style={styles.resultMessage}>{getResultMessage(score).message}</Text>
+        </View>
       ) : (
         <>
           <View style={styles.form}>
@@ -101,16 +124,45 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#fff',
     },
+    resultContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 10,
+      },
     resultText: {
       fontSize: 24,
       fontWeight: 'bold',
-      color: '#333',
+      color: '#fff',
       textAlign: 'center',
     },
     
     progressBar: {
     marginVertical: 20,
     },
+    resultTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 10,
+      },
+      resultScore: {
+        fontSize: 20,
+        color: '#555',
+        marginBottom: 20,
+      },
+      resultMessage: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center',
+        paddingHorizontal: 10,
+      },
   });
 
 

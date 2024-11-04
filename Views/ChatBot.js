@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   userMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#DCF8C6',
+    backgroundColor: '#A57CFE',
     padding: 10,
     borderRadius: 10,
     marginVertical: 5,
