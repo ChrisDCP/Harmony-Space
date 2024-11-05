@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
 import questions from '../Components/Questions';
-import { db, ref, set } from '../servicios/firebase';
+import { db, ref, set, auth } from '../servicios/firebase';
 
-const StressTest = ({ userId }) => {
+const StressTest = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+
+  const userId = auth.currentUser.uid
 
   const handleAnswer = (optionScore) => {
     setScore(score + optionScore);
@@ -130,11 +132,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20,
         backgroundColor: '#ffffff',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 10,
       },
     resultText: {
       fontSize: 24,

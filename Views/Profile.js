@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { logOut, UserData } from '../servicios/databaseServices'
+import { logOut } from '../servicios/databaseServices'
+import { auth } from '../servicios/firebase'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 export default function Profile() {
   const navigation = useNavigation()
-  
 
   return (
     <View style={{flex:1, alignItems:'center', backgroundColor:'#4bc9ff'}}>
@@ -16,7 +16,7 @@ export default function Profile() {
           style={styles.userIcon}
         />
         <View style={{flexDirection:'row', alignItems:'center'}}>
-          <Text style={styles.userName}>...</Text>
+          <Text style={styles.userName}>userName</Text>
           <MaterialCommunityIcons name='account-edit-outline' size={25} color={'white'} />
         </View>
       </TouchableOpacity>
