@@ -20,7 +20,7 @@ export const IsUserActive = onAuthStateChanged(auth, (user) => {
 });
 
 // Función para obtener la URL de un archivo de audio
-const getAudioUrl = async (audioPath) => {
+export const getAudioUrl = async (audioPath) => {
   const audioRef = ref(storage, audioPath); // Usa la instancia de storage desde firebaseConfig
   try {
     const downloadURL = await getDownloadURL(audioRef);
@@ -31,4 +31,39 @@ const getAudioUrl = async (audioPath) => {
   }
 };
 
-export { getAudioUrl };
+//funcion para obtener todos los usuarios
+export const fetchUsers = async () => {
+  try {
+    const snapshot = await get(ref(db, 'users'));
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      console.log("No users found.");
+      return {};
+    }
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+};
+
+//funcion para actualizar un usuario
+export const updateUser = async (userId, updatedData) => {
+  try {
+    await update(ref(db, `users/${userId}`), updatedData);
+    console.log("User updated successfully.");
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+};
+
+export const deleteUser = async (userId) => {
+  try {
+    await remove(ref(db, `users/${userId}`));
+    console.log("User deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw error;
+  }
+};
