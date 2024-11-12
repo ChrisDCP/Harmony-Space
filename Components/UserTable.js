@@ -1,23 +1,28 @@
-// UserTable.js
+// Asegúrate de que fetchUsers retorna un objeto de esta estructura:
+// { userId1: { name: "User 1", role: "admin" }, userId2: { name: "User 2", role: "premium" } }
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, Alert, TextInput, FlatList, StyleSheet } from 'react-native';
-import { fetchUsers, updateUser, deleteUser } from '../servicios/databaseService';
+import { fetchUsers, updateUser, deleteUser } from '../servicios/databaseServices';
 
 const UserTable = () => {
   const [users, setUsers] = useState({});
   const [editingUser, setEditingUser] = useState(null);
-  const [updatedData, setUpdatedData] = useState({}); 
+  const [updatedData, setUpdatedData] = useState({});
 
-  // Función para obtener los usuarios al cargar el componente
   useEffect(() => {
     const loadUsers = async () => {
       const usersData = await fetchUsers();
-      setUsers(usersData);
+      console.log("user data:", usersData)
+      if (typeof usersData === 'object') {
+        setUsers(usersData);
+      } else {
+        console.error("fetchUsers() debe retornar un objeto.");
+      }
     };
     loadUsers();
   }, []);
 
-  // Manejar el borrado de un usuario con confirmación
   const handleDeleteUser = (userId) => {
     Alert.alert(
       "Confirmar eliminación",
@@ -40,13 +45,11 @@ const UserTable = () => {
     );
   };
 
-  // Manejar el inicio de la edición de un usuario
   const handleEditUser = (userId) => {
     setEditingUser(userId);
-    setUpdatedData(users[userId]); // Carga los datos actuales del usuario
+    setUpdatedData(users[userId]);
   };
 
-  // Manejar la actualización del usuario
   const handleUpdateUser = async () => {
     if (editingUser && updatedData) {
       await updateUser(editingUser, updatedData);
@@ -86,8 +89,8 @@ const UserTable = () => {
               </>
             ) : (
               <>
-                <Text style={styles.cell}>{users[userId].name}</Text>
-                <Text style={styles.cell}>{users[userId].role}</Text>
+                <Text style={styles.cell}>{users[userId]?.name || "N/A"}</Text>
+                <Text style={styles.cell}>{users[userId]?.role || "N/A"}</Text>
                 <Button title="Editar" onPress={() => handleEditUser(userId)} />
                 <Button title="Eliminar" onPress={() => handleDeleteUser(userId)} />
               </>

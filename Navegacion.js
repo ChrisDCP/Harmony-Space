@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 
 //navigation imports
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -18,11 +19,17 @@ import Test from './Views/Test'
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
 import About from './Views/About'
+import AdminScreen from './Views/Admin'
+
+
+//context
+import { useUser } from './context/UserContext'
 
 
 // navigator const
 const StackNavigator = createStackNavigator()
 const Tab = createBottomTabNavigator()
+
 
 //navigator functions
 
@@ -68,9 +75,9 @@ function MyStack(){
 function MyTabs(){
 return(
   <Tab.Navigator
-    initialRouteName='homeScreen'
+    initialRouteName='omeScreen'
     screenOptions={{
-      tabBarActiveTintColor:'#A57CFE'
+      tabBarActiveTintColor:'#A57CFE',
     }}
   >
 
@@ -127,9 +134,15 @@ return(
 }
 
 export default function Navegacion() {
+  const {role} = useUser()
   return (
     <NavigationContainer>
-      <MyTabs/>
+      {role === "admin" ?(
+        <StackNavigator.Navigator>
+          <StackNavigator.Screen name='admin' component={AdminScreen} options={{headerShown: false}}/>
+        </StackNavigator.Navigator>
+      ): 
+      <MyTabs/> }
     </NavigationContainer>
   )
 }

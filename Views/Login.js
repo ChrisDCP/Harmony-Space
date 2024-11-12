@@ -1,12 +1,14 @@
 import { View, Text, ToastAndroid, StyleSheet, 
          Image, TextInput, TouchableOpacity, SafeAreaView} from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { db,auth,ref,get,set } from '../servicios/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 
 import { useNavigation } from '@react-navigation/native'
+
+import { UserProvider } from '../context/UserContext'
 
 export default function Login() {
   //login input states
@@ -15,6 +17,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   //pass state
   const [showPass, setShowPass] = useState('')
+
   const navigation = useNavigation()
 
   //switch select
