@@ -1,14 +1,15 @@
 // Chatbot.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, ScrollView, StyleSheet, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import { sendMessageToGeminiAi } from '../servicios/OpenAi';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Chatbot() {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
 
   const handleSendMessage = async () => {
-    if (message.trim() === '') return;
+    if (message.trim() === '') return Alert.alert("debe escribir un mensaje");
 
     const userMessage = { sender: 'user', text: message };
     setChatHistory([...chatHistory, userMessage]);
@@ -19,11 +20,12 @@ export default function Chatbot() {
       console.log(response)
       setChatHistory([...chatHistory, userMessage, botMessage]);
       
+      setMessage(''); 
+      Keyboard.dismiss()
     } catch (error) {
       setChatHistory([...chatHistory, userMessage, { sender: 'bot', text: 'Error al obtener respuesta.' }]);
     }
     
-    setMessage(''); 
   };
 
   return (
@@ -35,45 +37,73 @@ export default function Chatbot() {
           </Text>
         ))}
       </ScrollView>
-      <TextInput
-        style={styles.input}
-        value={message}
-        onChangeText={setMessage}
-        placeholder="Escribe un mensaje..."
-      />
-      <Button title="Enviar" onPress={handleSendMessage} />
+      <View style={styles.send}>
+        <TextInput
+          style={styles.input}
+          value={message}
+          onChangeText={setMessage}
+          placeholder="Escribe un mensaje..."
+        />
+        <TouchableOpacity onPress={handleSendMessage}>
+          <Ionicons name='send-outline' color='#A57CFE' size={30} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     padding: 20,
+    backgroundColor: '#AAE6FF',
   },
   chatContainer: {
-    flex: 1,
-    marginBottom: 20,
+    top:20,
+    flex:1,
+    width:'100%',
+    backgroundColor:'white',
+    borderRadius:30,
+    paddingVertical:20,
+    marginBottom:40,
   },
   userMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#A57CFE',
+    backgroundColor: '#D9EFE4',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 21,
     marginVertical: 5,
+    maxWidth:'85%',
+    marginRight:10,
+    fontSize:16,
+    fontWeight:'400',
+    lineHeight:26
   },
   botMessage: {
     alignSelf: 'flex-start',
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#AAD6F6',
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 21,
     marginVertical: 5,
+    maxWidth:'85%',
+    marginLeft:20,
+    fontSize:16,
+    fontWeight:'400',
+    lineHeight:26
+  },
+  send:{
+    backgroundColor:'white',
+    borderRadius:25,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    padding:5,
+    marginBottom:-20,
+    height:62,
+    position:'relative'
   },
   input: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
+    width:'90%'
   },
 });
