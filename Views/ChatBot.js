@@ -15,7 +15,8 @@ export default function Chatbot() {
 
     try {
       const response = await sendMessageToGeminiAi(message);
-      const botMessage = { sender: 'bot', text: response };
+      const botMessage = { sender: 'bot', text: response};
+      console.log(response)
       setChatHistory([...chatHistory, userMessage, botMessage]);
       
     } catch (error) {

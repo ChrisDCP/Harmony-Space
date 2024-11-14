@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
-import { get, ref, update, remove } from "firebase/database"
+import { get, update, remove } from "firebase/database"
 import { auth, storage, db } from './firebase.js'; 
 
 // Función para cerrar sesión

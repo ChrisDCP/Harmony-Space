@@ -75,7 +75,7 @@ function MyStack(){
 function MyTabs(){
 return(
   <Tab.Navigator
-    initialRouteName='omeScreen'
+    initialRouteName='HomeScreen'
     screenOptions={{
       tabBarActiveTintColor:'#A57CFE',
     }}
