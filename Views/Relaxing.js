@@ -6,10 +6,10 @@ import { getAudioUrl } from '../servicios/databaseServices';
 import Player from '../Components/Player';
 
 const AudioButton = ({ title, onPress, color }) => (
-  <TouchableOpacity style={[styles.audioButton, { backgroundColor: color }]} onPress={onPress}>
+  <View style={[styles.audioButton, { backgroundColor: color }]} onPress={onPress}>
     <Text style={styles.audioButtonText}>{title}</Text>
     <Ionicons name="play" size={24} color="white" />
-  </TouchableOpacity>
+  </View>
 );
 
 const Relaxing = () => {
@@ -38,10 +38,11 @@ const Relaxing = () => {
   };
 
   return (
-    <LinearGradient colors={['#9C27B0', '#2196F3']} style={styles.container}>
+    <LinearGradient colors={['#599DE6', '#F1A3Ef','#A57CFE']} style={styles.container}
+    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Ionicons name="arrow-back" size={24} color="white" />
+          <Ionicons name="arrow-back-circle-outline" size={24} color="white" />
           <Text style={styles.headerTitle}>Area de relajacion</Text>
           <View style={styles.headerIcons}>
             <Ionicons name="diamond" size={24} color="white" style={styles.headerIcon} />
@@ -50,7 +51,7 @@ const Relaxing = () => {
         </View>
         <ScrollView style={styles.content}>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Meditaciones</Text>
+            <Text style={styles.sectionTitle}>Pon un sonido ambiente</Text>
             <View style={styles.audioGrid}>
               <AudioButton title="Reduce el estrés" onPress={() => handleAudioPress("Reduce el estrés")} color="#8E44AD" />
               <AudioButton title="Reduce la ansiedad" onPress={() => handleAudioPress("Reduce la ansiedad")} color="#3498DB" />
@@ -59,7 +60,14 @@ const Relaxing = () => {
             </View>
           </View>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Sonidos de fondo</Text>
+            <Text style={styles.sectionTitle}>Medita </Text>
+            <View style={styles.audioGrid}>
+              <AudioButton title="Música para dormir" onPress={() => handleAudioPress("Música para dormir")} color="#2196F3" />
+              <AudioButton title="Respiración guiada" onPress={() => handleAudioPress("Respiración guiada")} color="#00BCD4" />
+            </View>
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Relaja el cuerpo y Respira</Text>
             <View style={styles.audioGrid}>
               <AudioButton title="Música para dormir" onPress={() => handleAudioPress("Música para dormir")} color="#2196F3" />
               <AudioButton title="Respiración guiada" onPress={() => handleAudioPress("Respiración guiada")} color="#00BCD4" />
@@ -86,6 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
+    top:8
   },
   headerTitle: {
     color: 'white',
@@ -102,15 +111,21 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 16,
+    top:20,
+    backgroundColor:'white',
+    borderTopLeftRadius:35,
+    borderTopRightRadius:35,
   },
   section: {
     marginBottom: 24,
   },
   sectionTitle: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '600',
     marginBottom: 16,
+    textAlign:'center',
+    lineHeight:52
   },
   audioGrid: {
     flexDirection: 'row',
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
-    flexDirection: 'row',
+    
     justifyContent: 'space-between',
     alignItems: 'center',
   },

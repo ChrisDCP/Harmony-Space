@@ -13,15 +13,15 @@ export default function Chatbot() {
 
     const userMessage = { sender: 'user', text: message };
     setChatHistory([...chatHistory, userMessage]);
-
+    setMessage(''); 
+    Keyboard.dismiss()
     try {
       const response = await sendMessageToGeminiAi(message);
       const botMessage = { sender: 'bot', text: response};
       console.log(response)
       setChatHistory([...chatHistory, userMessage, botMessage]);
       
-      setMessage(''); 
-      Keyboard.dismiss()
+
     } catch (error) {
       setChatHistory([...chatHistory, userMessage, { sender: 'bot', text: 'Error al obtener respuesta.' }]);
     }
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   chatContainer: {
     top:20,
     flex:1,
-    width:'100%',
     backgroundColor:'white',
     borderRadius:30,
     paddingVertical:20,
