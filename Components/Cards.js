@@ -8,15 +8,18 @@ const Cards = ({ onPress, type }) => {
   const getIcon = () => {
     switch (type) {
       case 'meditation':
-        return <Ionicons name="body" size={40} color="white" />;
+        return <View style={{alignItems:'center'}}><Ionicons name="body" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Meditacion</Text></View>;
       case 'music':
-        return <Ionicons name="musical-note" size={40} color="white" />;
+        return <View style={{alignItems:'center'}}><Ionicons name="musical-note" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Sonidos</Text></View>;
       case 'bot':
-        return <Ionicons name="chatbubble-ellipses-outline" size={40} color="white" />;
+        return <View style={{alignItems:'center'}}><Ionicons name="chatbubble-ellipses-outline" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Chatbot</Text></View>;
       case 'profile':
-        return (
-          <View style={styles.profileContainer}>
-            <Text style={styles.profileText}>Perfil</Text>
+        return ( 
+          <View style={styles.profileContainer}><Ionicons name="book-outline" size={40} color="white" />
+            <Text style={{color:'white', fontSize:20}}>Ir a tu diario</Text>
           </View>
         );
     }

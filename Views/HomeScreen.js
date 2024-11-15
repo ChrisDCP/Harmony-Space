@@ -1,15 +1,17 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Cards from '../Components/Cards';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
+  
+
   return (
     <View style={styles.container}>
       <Text style={{fontSize:30, marginTop:25, color:'black', textAlign: 'center'}}>Bienvenido a harmony Space</Text>
+      <Text style={{fontSize:20, marginTop:25, color:'black', textAlign: 'center'}}>Que le gustaria hacer?</Text>
       <View style={styles.grid}>
         <Cards
           type="meditation"
