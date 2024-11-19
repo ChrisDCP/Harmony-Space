@@ -1,6 +1,6 @@
 import { View, Text, ToastAndroid, StyleSheet, 
-         Image, TextInput, TouchableOpacity, SafeAreaView} from 'react-native'
-import React, { useState, useContext, useEffect } from 'react'
+         Image, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform} from 'react-native'
+import React, { useState} from 'react'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { db,auth,ref,get,set } from '../servicios/firebase'
@@ -8,7 +8,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'fireb
 
 import { useNavigation } from '@react-navigation/native'
 
-import { UserProvider } from '../context/UserContext'
+import { LinearGradient } from 'expo-linear-gradient'
+
 
 export default function Login() {
   //login input states
@@ -93,80 +94,87 @@ export default function Login() {
     setEmail('')
     setPassword('')
   }
-  
 
   return (
-    <SafeAreaView style={styles.vista} >
-      <Image style={styles.imgLogo} source={require('../assets/HarmonySpace Logo.png')} />
-      <View style={styles.formulario}>
+    <LinearGradient colors={['#A0E6FFC9', '#F1A3EF99','#599DE6']} style={styles.vista}
+    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+      
+        <Image style={styles.imgLogo} source={require('../assets/HarmonySpace Logo.png')} />
+        
+        <View style={styles.formulario}>
 
-        <View style={styles.swContenedor}>
-          <TouchableOpacity
-            style={[styles.swButton,swSelected ==='login' ?
-              styles.swButtSelected : styles.swButtNonSelected]}
-            onPress={()=>setswSelected('login')}>
-            <Text style={styles.swButtText} >Iniciar sesion</Text>
-          </TouchableOpacity>
+          <View style={styles.swContenedor}>
+            <TouchableOpacity
+              style={[styles.swButton,swSelected ==='login' ?
+                styles.swButtSelected : styles.swButtNonSelected]}
+              onPress={()=>setswSelected('login')}>
+              <Text style={styles.swButtText} >Iniciar sesion</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.swButton,swSelected ==='register' ?
-              styles.swButtSelected : styles.swButtNonSelected]}
-            onPress={()=>setswSelected('register')}>
-            <Text style={styles.swButtText} >Registrarse</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={[styles.swButton,swSelected ==='register' ?
+                styles.swButtSelected : styles.swButtNonSelected]}
+              onPress={()=>setswSelected('register')}>
+              <Text style={styles.swButtText} >Registrarse</Text>
+            </TouchableOpacity>
+          </View>
 
-        {showInputName && (
-        <TextInput
-        style={styles.inputsCredentials}
-        onChangeText={setName}
-        value={name}
-        placeholder='Nombre'
-        />)}
-
-        <TextInput
-          style={styles.inputsCredentials}
-          onChangeText={setEmail}
-          value={email}
-          placeholder='E-mail'
-          textContentType='emailAddress'
-        />
-        <View style={styles.passContainer}>
+          {showInputName && (
+          <LinearGradient colors={['#DABEF5','#AAD6F6']} 
+          style={styles.inputsCredentials} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
           <TextInput
-            style={styles.inputsCredentials}
-            onChangeText={setPassword}
-            value={password}
-            placeholder='Contraseña'
-            textContentType='password'
-            secureTextEntry={!showPass}
+            onChangeText={setName}
+            value={name}
+            placeholder={'Nombre'}
           />
-          <MaterialCommunityIcons 
-            name={showPass ? 'eye-off' : 'eye'} 
-            size={24} 
-            color="#aaa"
-            style={styles.eyeIcon} 
-            onPress={toggleShowPassword} 
-          /> 
+          </LinearGradient>)}
+
+          <LinearGradient colors={['#DABEF5','#AAD6F6']} 
+          style={styles.inputsCredentials} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+            <TextInput
+            onChangeText={setEmail}
+            value={email}
+            placeholder='E-mail'
+            textContentType='emailAddress'
+            />
+          </LinearGradient>
+
+          <View style={styles.passContainer}>
+          <LinearGradient colors={['#DABEF5','#AAD6F6']} 
+          style={styles.inputsCredentials} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+            <TextInput
+              onChangeText={setPassword}
+              value={password}
+              placeholder='Contraseña'
+              textContentType='password'
+              secureTextEntry={!showPass}
+            />
+          </LinearGradient>
+            <MaterialCommunityIcons 
+              name={showPass ? 'eye-off' : 'eye'} 
+              size={30} 
+              color="#fff"
+              style={styles.eyeIcon} 
+              onPress={toggleShowPassword} 
+            /> 
+          </View>
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={swSelected === 'login'? loginService : singUp}
+          >
+            <Text style={styles.submitText} >{swSelected==='login' ? 'Iniciar sesion' : 'Registrarse'}</Text>
+          </TouchableOpacity>
+
+            {!showInputName && (
+          <Text style={styles.contraseñaText}>¿Has olvidado la contraseña?</Text>)}
         </View>
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={swSelected === 'login'? loginService : singUp}
-        >
-          <Text style={styles.submitText} >{swSelected==='login' ? 'Iniciar sesion' : 'Registrarse'}</Text>
-        </TouchableOpacity>
-
-          {!showInputName && (
-        <Text style={styles.contraseñaText}>¿Has olvidado la contraseña?</Text>)}
-      </View>
-
-    </SafeAreaView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
   vista:{
     flex:1,
-    backgroundColor:'#1ad9f9',
     justifyContent:'space-between',
     alignItems:'center'
   },
@@ -175,19 +183,23 @@ const styles = StyleSheet.create({
     width:'55%'
   },
   formulario:{
+    position:'absolute',
     paddingTop:'40%',
     height:'70%',
-    width:'75%',
+    width:'85%',
     borderRadius:40,
-    backgroundColor:'white',
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    backgroundColor:'rgba(255,255,255,0.1)',
     alignItems:'center',
-    bottom:15
+    bottom:25,
+    alignContent:'space-around',
   },
   swContenedor:{
     width:'80%',
-    backgroundColor:'#3a7fdf',
+    backgroundColor:'#A0E6FF',
     top:'-35%',
-    height:70,
+    height:50,
     borderRadius:40,
     flexDirection:'row',
     alignItems:'center'
@@ -200,49 +212,50 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   swButtSelected:{
-    backgroundColor:'#4bc9ff'
+    backgroundColor:'#A57CFE'
   },
   swButtNonSelected:{
-    backgroundColor:'#3a7fdf'
+    backgroundColor:'#A0E6FF',
   },
   swButtText:{
     color:'white',
     fontSize:18,
-    fontWeight:'400',
+    fontWeight:'600',
+    lineHeight:33,
     textAlign:'center'
   },
   
   inputsCredentials:{
-    borderColor:'black',
-    borderBottomWidth:1,
+    borderRadius:25,
     width:'80%',
-    marginBottom:20
+    marginBottom:20,
+    padding:10
   },
   passContainer:{
     width:'100%',
     flexDirection:'row',
-    marginLeft:60
+    marginLeft:70,
+    
   },
   eyeIcon:{
-    right:30
+    right:35,
+    top:7
   },
   submitButton:{
-    backgroundColor:"#4bc9ff",
-    margin:10,
+    backgroundColor:"#A57CFECF",
     padding:10,
-    height:70,
+    height:50,
     width:'60%',
     top:40,
     borderRadius:40,
-    justifyContent:'center'
   },
   submitText:{
     textAlign:'center',
+    lineHeight:35,
+    fontWeight:'600',
     color:'white',
-    fontSize:25,
-    textShadowColor: "#3a55FF",
-    textShadowOffset: { width: 0, height: 1.5 },
-    textShadowRadius: 1,
+    fontSize:23,
+    bottom:5
   },
   contraseñaText:{
     marginTop:55,
