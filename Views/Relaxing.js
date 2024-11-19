@@ -53,24 +53,27 @@ const Relaxing = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Pon un sonido ambiente</Text>
             <View style={styles.audioGrid}>
-              <AudioButton title="Reduce el estrés" onPress={() => handleAudioPress("Reduce el estrés")} color="#8E44AD" />
-              <AudioButton title="Reduce la ansiedad" onPress={() => handleAudioPress("Reduce la ansiedad")} color="#3498DB" />
-              <AudioButton title="Ataque de pánico" onPress={() => handleAudioPress("Ataque de pánico")} color="#E91E63" />
-              <AudioButton title="Relajación express" onPress={() => handleAudioPress("Relajación express")} color="#9C27B0" />
+              <AudioButton title="Reduce el estrés" onPress={() => handleAudioPress("Reduce el estrés")} color="#A57CFE" />
+              <AudioButton title="Reduce la ansiedad" onPress={() => handleAudioPress("Reduce la ansiedad")} color="#599DE6" />
+              <AudioButton title="Ataque de pánico" onPress={() => handleAudioPress("Ataque de pánico")} color="#F1A3EF" />
+              <AudioButton title="Relajación express" onPress={() => handleAudioPress("Relajación express")} color="#A57CFE" />
             </View>
           </View>
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Medita </Text>
             <View style={styles.audioGrid}>
-              <AudioButton title="Música para dormir" onPress={() => handleAudioPress("Música para dormir")} color="#2196F3" />
-              <AudioButton title="Respiración guiada" onPress={() => handleAudioPress("Respiración guiada")} color="#00BCD4" />
+              <AudioButton title="Música para dormir" onPress={() => handleAudioPress("Música para dormir")} color="#AAD6F6" />
+              <AudioButton title="Respiración guiada" onPress={() => handleAudioPress("Respiración guiada")} color="#599DE6" />
             </View>
           </View>
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Relaja el cuerpo y Respira</Text>
             <View style={styles.audioGrid}>
-              <AudioButton title="Música para dormir" onPress={() => handleAudioPress("Música para dormir")} color="#2196F3" />
-              <AudioButton title="Respiración guiada" onPress={() => handleAudioPress("Respiración guiada")} color="#00BCD4" />
+              <AudioButton title="Controla tu ritmo" onPress={() => handleAudioPress("Controla tu ritmo")} color="#2196F3" />
+              <AudioButton title="Estira tu cuerpo
+              
+              
+              " onPress={() => handleAudioPress("Estira tu cuerpo")} color="#00BCD4" />
             </View>
           </View>
         </ScrollView>

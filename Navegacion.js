@@ -1,5 +1,4 @@
 import React from 'react'
-import { useEffect } from 'react'
 
 //navigation imports
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -20,6 +19,7 @@ import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
 import About from './Views/About'
 import AdminScreen from './Views/Admin'
+import Diary from './Views/Diary'
 
 
 //context
@@ -65,6 +65,12 @@ function MyStack(){
       name='test'
       component={Test}
       options={{presentation: 'modal', title:'test de estres' }}
+      />
+
+      <StackNavigator.Screen
+      name='diary'
+      component={Diary}
+      options={{presentation: 'modal', title:'Mi diario' }}
       />
 
     </StackNavigator.Navigator>

@@ -8,15 +8,18 @@ const Cards = ({ onPress, type }) => {
   const getIcon = () => {
     switch (type) {
       case 'meditation':
-        return <Ionicons name="body" size={40} color="white" />;
+        return <View style={{alignItems:'center'}}><Ionicons name="body" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Meditacion</Text></View>;
       case 'music':
-        return <Ionicons name="musical-note" size={40} color="white" />;
+        return <View style={{alignItems:'center'}}><Ionicons name="musical-note" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Sonidos</Text></View>;
       case 'bot':
-        return <Ionicons name="chatbubble-ellipses-outline" size={40} color="white" />;
-      case 'profile':
-        return (
-          <View style={styles.profileContainer}>
-            <Text style={styles.profileText}>Perfil</Text>
+        return <View style={{alignItems:'center'}}><Ionicons name="chatbubble-ellipses-outline" size={40} color="white" />
+        <Text style={{color:'white', fontSize:20}}>Chatbot</Text></View>;
+      case 'diary':
+        return ( 
+          <View style={styles.profileContainer}><Ionicons name="book-outline" size={40} color="white" />
+            <Text style={{color:'white', fontSize:20}}>Ir a tu diario</Text>
           </View>
         );
     }
@@ -30,7 +33,7 @@ const Cards = ({ onPress, type }) => {
         return ['#7C4DFF', '#651FFF'];
       case 'bot':
         return ['#3F51B5', '#303F9F'];
-      case 'profile':
+      case 'diary':
         return ['#5E35B1', '#4527A0'];
     }
   };

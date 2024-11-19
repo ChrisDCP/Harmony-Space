@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
-import { get, update, remove } from "firebase/database"
+import { get, update, remove} from "firebase/database"
 import { auth, storage, db } from './firebase.js'; 
 
 // Función para cerrar sesión
@@ -31,6 +31,7 @@ export const getAudioUrl = async (audioPath) => {
     throw error; 
   }
 };
+
 
 //funcion para obtener todos los usuarios
 export const fetchUsers = async () => {
