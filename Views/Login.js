@@ -47,7 +47,7 @@ export default function Login() {
       });
 
       ToastAndroid.show("Regristro completo", ToastAndroid.CENTER, ToastAndroid.SHORT)
-      navigation.navigate('home')
+      navigation.navigate('test')
       
     }catch(error){
       if (error.code === 'auth/email-already-in-use') {
