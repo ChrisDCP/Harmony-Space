@@ -62,9 +62,9 @@ function MyStack(){
       />
 
       <StackNavigator.Screen
-      name='test'
-      component={Test}
-      options={{presentation: 'modal', title:'test de estres' }}
+      name='relaxing'
+      component={Relaxing}
+      options={{presentation: 'modal', headerShown:false}}
       />
 
       <StackNavigator.Screen
@@ -112,12 +112,12 @@ return(
     />
 
     <Tab.Screen
-      name='relaxing'
-      component={Relaxing}
+      name='test'
+      component={Test}
       options={{
         headerShown: false,
         tabBarIcon: ({color, size})=>(
-          <MaterialComunityIcons name= 'music-box-multiple-outline' color={color} size={size}/>
+          <MaterialComunityIcons name= 'text-box-outline' color={color} size={size}/>
         ),
         tabBarLabel:''
       }}

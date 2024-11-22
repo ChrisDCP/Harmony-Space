@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Button } from 'react-native';
 import * as Progress from 'react-native-progress';
 import questions from '../Components/Questions';
 import { db, ref, set, auth } from '../servicios/firebase';
@@ -8,6 +8,7 @@ const StressTest = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(true);
 
   const userId = auth.currentUser.uid
 
@@ -65,6 +66,19 @@ const StressTest = () => {
         </View>
       ) : (
         <>
+          <Modal        
+          animationType="slide"
+          transparent={true}
+          visible={isModalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={{marginHorizontal:'auto',marginVertical:'auto' ,backgroundColor:'white', justifyContent:'center', alignItems:'center', flex:1, maxWidth:'100%', maxHeight:'70%', borderRadius:25}}>
+            <Text style={{fontSize:20, textAlign:'center'}}>Realiza el test de estres percibido para saber cuales son tus niveles de estres durante el ultimo mes</Text>
+            <TouchableOpacity style={{backgroundColor:'#A57CFE', width:'50%',height:'8%' ,borderRadius:25, margin: 15, padding: 5}} >
+              <Text style={{fontSize:20, fontWeight:'600', color:'white', textAlign:'center'}}>Continuar</Text>
+            </TouchableOpacity>
+          </View>
+          
+          </Modal>
           <View style={styles.form}>
             <Progress.Bar 
               progress={progress} 

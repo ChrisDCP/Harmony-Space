@@ -2,14 +2,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { logOut } from '../servicios/databaseServices'
-import { auth } from '../servicios/firebase'
+import { LinearGradient } from 'expo-linear-gradient'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 export default function Profile() {
   const navigation = useNavigation()
 
   return (
-    <View style={{flex:1, alignItems:'center', backgroundColor:'#4bc9ff'}}>
+    <LinearGradient colors={['#fff', '#B888E9']} style={{flex:1, alignItems:'center'}}>
       <TouchableOpacity style={styles.userProfileContainer}
       onPress={()=>navigation.navigate('userProfileData')}>
         <Image source={require('../assets/UserIcon.png')}
@@ -47,7 +47,7 @@ export default function Profile() {
         </TouchableOpacity>
 
       </View>
-    </View>
+    </LinearGradient>
   )
 }
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   userName:{
     fontSize:25,
-    color:'white',
+    color:'black',
     padding:5
   }
 })

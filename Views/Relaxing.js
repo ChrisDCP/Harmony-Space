@@ -6,10 +6,10 @@ import { getAudioUrl } from '../servicios/databaseServices';
 import Player from '../Components/Player';
 
 const AudioButton = ({ title, onPress, color }) => (
-  <View style={[styles.audioButton, { backgroundColor: color }]} onPress={onPress}>
+  <TouchableOpacity style={[styles.audioButton, { backgroundColor: color }]} onPress={onPress}>
     <Text style={styles.audioButtonText}>{title}</Text>
     <Ionicons name="play" size={24} color="white" />
-  </View>
+  </TouchableOpacity>
 );
 
 const Relaxing = () => {
@@ -42,7 +42,7 @@ const Relaxing = () => {
     start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Ionicons name="arrow-back-circle-outline" size={24} color="white" />
+          <Ionicons name="arrow-back-circle-outline" size={30} color="white" onPress={Navigator.n}/>
           <Text style={styles.headerTitle}>Area de relajacion</Text>
           <View style={styles.headerIcons}>
             <Ionicons name="diamond" size={24} color="white" style={styles.headerIcon} />
