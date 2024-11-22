@@ -73,7 +73,7 @@ const StressTest = () => {
           onRequestClose={() => setModalVisible(false)}>
           <View style={{marginHorizontal:'auto',marginVertical:'auto' ,backgroundColor:'white', justifyContent:'center', alignItems:'center', flex:1, maxWidth:'100%', maxHeight:'70%', borderRadius:25}}>
             <Text style={{fontSize:20, textAlign:'center'}}>Realiza el test de estres percibido para saber cuales son tus niveles de estres durante el ultimo mes</Text>
-            <TouchableOpacity style={{backgroundColor:'#A57CFE', width:'50%',height:'8%' ,borderRadius:25, margin: 15, padding: 5}} >
+            <TouchableOpacity style={{backgroundColor:'#A57CFE', width:'50%',height:'8%' ,borderRadius:25, margin: 15, padding: 5}} onPress={()=>setModalVisible(false)}>
               <Text style={{fontSize:20, fontWeight:'600', color:'white', textAlign:'center'}}>Continuar</Text>
             </TouchableOpacity>
           </View>
