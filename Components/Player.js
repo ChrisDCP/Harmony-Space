@@ -64,14 +64,8 @@ const Player = ({ audioUrl, title, imageUrl, isVisible, onClose }) => {
             </View>
           </View>
           <View style={styles.controls}>
-            <TouchableOpacity>
-              <Ionicons name="play-skip-back" size={32} color="white" />
-            </TouchableOpacity>
             <TouchableOpacity onPress={handlePlayPause}>
               <Ionicons name={isPlaying ? "pause" : "play"} size={48} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="play-skip-forward" size={32} color="white" />
             </TouchableOpacity>
           </View>
         </View>

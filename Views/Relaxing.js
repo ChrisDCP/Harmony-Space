@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { getAudioUrl } from '../servicios/databaseServices';
 import Player from '../Components/Player';
 
@@ -15,9 +16,8 @@ const AudioButton = ({ title, onPress, color }) => (
 const Relaxing = () => {
   const [audioUrl, setAudioUrl] = useState('');
   const [selectedAudio, setSelectedAudio] = useState(null);
-  const [isVisible, setIsvisible]= useState(false)
-
-  const onClose =()=>{setIsvisible(false)}
+  const [isVisible, setIsvisible] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchAudio = async () => {
@@ -34,7 +34,15 @@ const Relaxing = () => {
 
   const handleAudioPress = (title) => {
     setSelectedAudio(title);
-    setIsvisible(true)
+    
+    // Usamos setTimeout para cambiar `isVisible` después del ciclo de renderizado
+    setTimeout(() => {
+      setIsvisible(true);
+    }, 0); // Diferir la actualización para evitar el warning
+  };
+
+  const onClose = () => {
+    setIsvisible(false);
   };
 
   return (
@@ -42,7 +50,7 @@ const Relaxing = () => {
     start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-          <Ionicons name="arrow-back-circle-outline" size={30} color="white" onPress={Navigator.n}/>
+          <Ionicons name="arrow-back-circle-outline" size={30} color="white" onPress={()=>{navigation.navigate('home')}}/>
           <Text style={styles.headerTitle}>Area de relajacion</Text>
           <View style={styles.headerIcons}>
             <Ionicons name="diamond" size={24} color="white" style={styles.headerIcon} />
@@ -74,15 +82,13 @@ const Relaxing = () => {
             </View>
           </View>
         </ScrollView>
-        {selectedAudio && audioUrl && (
-          <Player audioUrl={audioUrl} title={selectedAudio} isVisible={isVisible} onClose={onClose}/>
+        {selectedAudio && audioUrl && isVisible && (
+          <Player audioUrl={audioUrl} title={selectedAudio} isVisible={isVisible} onClose={onClose} imageUrl={'https://us.123rf.com/450wm/brovector/brovector2207/brovector220701156/189557274-hombre-trabajando-en-una-computadora-port%C3%A1til-y-escuchando-m%C3%BAsica-con-auriculares-persona-sentada.jpg?ver=6'}/>
         )}
       </SafeAreaView>
     </LinearGradient>
   );
 };
-
-export default Relaxing;
 
 const styles = StyleSheet.create({
   container: {
@@ -139,7 +145,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
-    
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -149,3 +154,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default Relaxing;
