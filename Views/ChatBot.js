@@ -1,58 +1,105 @@
-// Chatbot.js
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   TextInput,
-  Button,
   Text,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Alert,
   Keyboard,
-  SafeAreaView,
 } from "react-native";
-import { sendMessageToGeminiAi } from "../servicios/OpenAi";
+import { sendMessageToGeminiAi } from "../servicios/OpenAi"; // Importa tu función para enviar mensajes
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Chatbot() {
-  const [message, setMessage] = useState("");
-  const [chatHistory, setChatHistory] = useState([]);
+  const [message, setMessage] = useState(""); // Mensaje del usuario
+  const [chatHistory, setChatHistory] = useState([]); // Historial de chat (estado local)
+  const chatboxRef = useRef(null);
 
   const handleSendMessage = async () => {
-    if (message.trim() === "") return Alert.alert("debe escribir un mensaje");
+    if (message.trim() === "") {
+      return Alert.alert("Debe escribir un mensaje");
+    }
 
-    const userMessage = { sender: "user", text: message };
-    setChatHistory([...chatHistory, userMessage]);
-    setMessage("");
+    // Crear el mensaje del usuario
+    const userMessage = { role: "user", parts: [{ text: message }] };
+
+    // Actualizar el historial con el mensaje del usuario
+    setChatHistory((prevHistory) => [...prevHistory, userMessage]);
+ // Actualiza el estado local
+
+    setMessage(""); // Limpia el input
     Keyboard.dismiss();
+
     try {
-      const response = await sendMessageToGeminiAi(message);
-      const botMessage = { sender: "bot", text: response };
-      console.log(response);
-      setChatHistory([...chatHistory, userMessage, botMessage]);
+      // Llama a la función `sendMessageToGeminiAi` pasando el mensaje del usuario y el historial
+      const response = await sendMessageToGeminiAi(message, chatHistory);
+
+      // Agregar la respuesta del bot al historial
+      const botMessage = { role: "model", parts: [{ text: response.text }] };
+      setChatHistory((prevHistory) => [...prevHistory, botMessage]); // Actualiza con el historial procesado
     } catch (error) {
-      setChatHistory([
-        ...chatHistory,
-        userMessage,
-        { sender: "bot", text: "Error al obtener respuesta." },
-      ]);
+      // Manejo del error
+      console.error("Error al obtener respuesta del bot:", error);
+    setChatHistory((prevHistory) => [
+      ...prevHistory,
+      { role: "model", parts: [{ text: "Error al obtener respuesta." }] },
+    ]);
     }
   };
 
+  const isJsonString = (str) => {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+  
+
+  useEffect(() => {
+    if (chatboxRef.current) {
+        chatboxRef.current.scrollToEnd({ animated: true });
+    }
+}, [chatHistory]);
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.chatContainer}>
-        {chatHistory.map((chat, index) => (
-          <Text
-            key={index}
-            style={
-              chat.sender === "user" ? styles.userMessage : styles.botMessage
-            }
-          >
-            {chat.text}
-          </Text>
-        ))}
+      <ScrollView style={styles.chatContainer} 
+      ref={chatboxRef}
+      contentContainerStyle={{padding:10}}
+      >
+{chatHistory.map((chat, index) => {
+  const messageText = chat.parts[0]?.text;
+
+  // Verificar si el contenido es un JSON válido
+  if (chat.role === "model" && isJsonString(messageText)) {
+    const exercise = JSON.parse(messageText);
+
+    return (
+      <View key={index} style={styles.botMessage}>
+        {exercise.response && <Text style={styles.response} selectable={true}>{exercise.response}</Text>}
+        {exercise.title && <Text style={styles.title} selectable={true}>{exercise.title}</Text>}
+        {exercise.description && <Text style={styles.description} selectable={true}>{exercise.description}</Text>}
+      </View>
+    );
+  }
+
+  // Renderizar texto normal
+  return (
+    <Text
+      key={index}
+      style={
+        chat.role === "user" ? styles.userMessage : styles.botMessage
+      }
+      selectable={true}
+    >
+      {messageText || ""}
+    </Text>
+  );
+})}
       </ScrollView>
       <View style={styles.send}>
         <TextInput
@@ -79,7 +126,6 @@ const styles = StyleSheet.create({
     top: 20,
     backgroundColor: "white",
     borderRadius: 30,
-    paddingVertical: 20,
     marginBottom: 40,
   },
   userMessage: {
@@ -120,5 +166,21 @@ const styles = StyleSheet.create({
   input: {
     padding: 10,
     width: "90%",
+  },
+  response: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#5A67D8",
+    marginBottom: 5,
+  },
+  description: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#2D3748",
   },
 });

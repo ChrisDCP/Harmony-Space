@@ -12,14 +12,16 @@ import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIc
 import HomeScreen from './Views/HomeScreen'
 import Profile from './Views/Profile'
 import ChatBot from './Views/ChatBot'
-import Relaxing from './Views/Relaxing'
 import Test from './Views/Test'
+
 //Stack Screens 
 import Login from './Views/Login'
 import UserProfileData from './Views/UserProfileData'
 import About from './Views/About'
 import AdminScreen from './Views/Admin'
 import Diary from './Views/Diary'
+import Relaxing from './Views/Relaxing'
+
 
 
 //context
@@ -64,7 +66,7 @@ function MyStack(){
       <StackNavigator.Screen
       name='relaxing'
       component={Relaxing}
-      options={{presentation: 'modal', headerShown:false}}
+      options={{presentation: 'modal', headerShown:false }}
       />
 
       <StackNavigator.Screen

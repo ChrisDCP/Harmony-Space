@@ -1,5 +1,5 @@
 // questions.js
-const Questions = [
+export const MonthQuestions = [
     {
       question: "En el último mes, ¿con qué frecuencia te has sentido afectado por algo que ocurrió inesperadamente? ",
       options: [
@@ -140,7 +140,58 @@ const Questions = [
           { text: "Muy a menudo", score: 4 },
         ],
       },
-  ];
-  
-  export default Questions;
-  
+  ];  
+
+  export const DailyQuestions = [
+  {
+    question: "¿Cómo te sentiste en control de tu vida hoy?",
+    options: [
+      {text: "Nada en control", score: 4},
+      {text: "Casi nada en control", score: 3},
+      {text: "Algo en control", score: 2},
+      {text: "Bastante en control", score: 1},
+      {text: "Totalmente en control", score: 0}
+    ]
+  },
+  {
+    question: "¿Cuánto te preocupaste por cosas fuera de tu control hoy?",
+    options: [
+      {text: "Me preocupe mucho", score: 4},
+      {text: "Me preocupe de mas", score: 3},
+      {text: "Me preocupe un poco", score: 2},
+      {text: "Me preocupe muy poco", score: 1},
+      {text: "No me preocupe", score: 0}
+    ]
+  },
+{
+  question: "¿Qué tan capaz te sentiste para manejar las demandas de hoy?",
+  options: [
+    {text: "Nada capaz", score: 4},
+    {text: "Muy poco capaz", score: 3},
+    {text: "Algo capaz", score: 2},
+    {text: "Un poco capaz", score: 1},
+    {text: "Muy capaz", score: 0}
+  ]
+},
+{
+  question: "¿Qué tan irritado o frustrado te sentiste durante el día?",
+  options: [
+    {text: "Muy irritado", score: 4},
+    {text: "Bastante irritado", score: 3},
+    {text: "Un poco irritado", score: 2},
+    {text: "Casi nada irritado", score: 1},
+    {text: "Nada irritado", score: 0}
+  ]
+},
+{
+  question: "¿Sentiste que las cosas te abrumaron hoy?",
+  options: [
+    {text: "Demasiado", score: 4},
+    {text: "Bastante", score: 3},
+    {text: "Un poco", score: 2},
+    {text: "Casi nada", score: 1},
+    {text: "Nada", score: 0}
+  ]
+},
+
+]

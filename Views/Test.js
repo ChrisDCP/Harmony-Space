@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Button } from 'react-native';
 import * as Progress from 'react-native-progress';
-import questions from '../Components/Questions';
+import {MonthQuestions} from '../Components/Questions';
 import { db, ref, set, auth } from '../servicios/firebase';
 
 const StressTest = () => {
@@ -14,7 +14,7 @@ const StressTest = () => {
 
   const handleAnswer = (optionScore) => {
     setScore(score + optionScore);
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < MonthQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setCompleted(true);
@@ -54,7 +54,7 @@ const StressTest = () => {
     }
   };
 
-  const progress = (currentQuestionIndex + 1) / questions.length;
+  const progress = (currentQuestionIndex + 1) / MonthQuestions.length;
 
   return (
     <View style={styles.container}>
@@ -90,9 +90,9 @@ const StressTest = () => {
             />
 
             <Text style={styles.questionText}>
-              {questions[currentQuestionIndex].question}
+              {MonthQuestions[currentQuestionIndex].question}
             </Text>
-            {questions[currentQuestionIndex].options.map((option, index) => (
+            {MonthQuestions[currentQuestionIndex].options.map((option, index) => (
               <TouchableOpacity
                 key={index}
                 style={styles.optionButton}

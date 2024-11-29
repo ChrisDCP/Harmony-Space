@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import Logo from "../assets/HarmonySpace Logo.png";
+import Logo from "../assets/harmonySpaceLogo.png";
 import { Ionicons } from "@expo/vector-icons";
 
 const About = () => {

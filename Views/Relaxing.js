@@ -70,10 +70,7 @@ const Relaxing = () => {
             <Text style={styles.sectionTitle}>Relaja el cuerpo y Respira</Text>
             <View style={styles.audioGrid}>
               <AudioButton title="Controla tu ritmo" onPress={() => handleAudioPress("Controla tu ritmo")} color="#2196F3" />
-              <AudioButton title="Estira tu cuerpo
-              
-              
-              " onPress={() => handleAudioPress("Estira tu cuerpo")} color="#00BCD4" />
+              <AudioButton title="Estira tu cuerpo" onPress={() => handleAudioPress("Estira tu cuerpo")} color="#00BCD4" />
             </View>
           </View>
         </ScrollView>
@@ -84,6 +81,8 @@ const Relaxing = () => {
     </LinearGradient>
   );
 };
+
+export default Relaxing;
 
 const styles = StyleSheet.create({
   container: {
@@ -150,5 +149,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default Relaxing;

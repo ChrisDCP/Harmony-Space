@@ -99,7 +99,7 @@ export default function Login() {
     <LinearGradient colors={['#A0E6FFC9', '#F1A3EF99','#599DE6']} style={styles.vista}
     start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
       
-        <Image style={styles.imgLogo} source={require('../assets/HarmonySpace Logo.png')} />
+        <Image style={styles.imgLogo} source={require('../assets/harmonySpaceLogo.png')} />
         
         <View style={styles.formulario}>
 

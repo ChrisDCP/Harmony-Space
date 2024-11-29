@@ -45,7 +45,6 @@ export default function Profile() {
         >
           <Text style={{textAlign:'center',fontSize:20 }}>Medir tu nivel de estres</Text>
         </TouchableOpacity>
-
       </View>
     </LinearGradient>
   )
