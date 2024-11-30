@@ -9,7 +9,7 @@ import {
   Alert,
   Keyboard,
 } from "react-native";
-import { sendMessageToGeminiAi } from "../servicios/OpenAi"; // Importa tu función para enviar mensajes
+import { sendMessageToGeminiAi } from "../servicios/OpenAi";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Chatbot() {
