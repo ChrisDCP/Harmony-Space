@@ -21,7 +21,8 @@ import About from './Views/About'
 import AdminScreen from './Views/Admin'
 import Diary from './Views/Diary'
 import Relaxing from './Views/Relaxing'
-
+import MonthTest from './Views/MonthTest'
+import DayTest from './Views/DayTest'
 
 
 //context
@@ -73,6 +74,17 @@ function MyStack(){
       name='diary'
       component={Diary}
       options={{presentation: 'modal', title:'Mi diario' }}
+      />
+      <StackNavigator.Screen 
+      name="MonthlyTest" 
+      component={MonthTest} 
+      options={{ title: 'Test Mensual' }} 
+      />
+
+      <StackNavigator.Screen 
+      name="DailyTest" 
+      component={DayTest} 
+      options={{ title: 'Test Diario' }} 
       />
 
     </StackNavigator.Navigator>

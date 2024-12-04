@@ -4,11 +4,14 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { get, update, remove} from "firebase/database"
 import { auth, storage, db } from './firebase.js'; 
 
+
 // Función para cerrar sesión
 export function logOut() {
+
   signOut(auth)
     .then(() => {
       Alert.alert("Sesión cerrada");
+
     })
     .catch((error) => {
       Alert.alert(error.message);
