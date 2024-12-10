@@ -74,6 +74,47 @@ export const deleteUser = async (userId) => {
   }
 };
 
+export const fetchTestResults = async (userId, testType = 'dailyTestResults') => {
+  if (!userId) throw new Error("El userId es necesario para cargar los resultados.");
+  
+  try {
+    const resultsRef = ref(db, `users/${userId}/${testType}`); // Ruta para los resultados de tests (diarios o mensuales)
+    const snapshot = await get(resultsRef);
+
+    if (!snapshot.exists()) {
+      console.log(`No hay resultados para el tipo de test: ${testType}`);
+      return [];
+    }
+
+    const data = snapshot.val(); // Los resultados deberían estar aquí
+    console.log(`Resultados ${testType}:`, data);
+
+    // Procesar los resultados y convertirlos en un array
+    const results = Object.keys(data).map((key) => ({
+      date: key,
+      score: data[key].score,
+    }));
+
+    return results; // Devuelve los resultados procesados
+  } catch (error) {
+    console.error(`Error al obtener los resultados ${testType}:`, error);
+    throw error; // Si ocurre un error, lo lanzamos para manejarlo
+  }
+};
+
+// Función para actualizar los resultados de un test para un usuario
+export const updateTestResults = async (userId, testType, updatedResults) => {
+  if (!userId) throw new Error("El userId es necesario para actualizar los resultados.");
+
+  try {
+    await update(ref(db, `users/${userId}/${testType}`), updatedResults); // Actualiza los resultados del test
+    console.log(`Resultados del test ${testType} actualizados correctamente.`);
+  } catch (error) {
+    console.error(`Error al actualizar los resultados ${testType}:`, error);
+    throw error; // Si ocurre un error, lo lanzamos para manejarlo
+  }
+};
+
 // Función para obtener los resultados diarios
 export const fetchDailyResults = async (userId) => {
   if (!userId) throw new Error("El userId es necesario para cargar los resultados diarios.");
