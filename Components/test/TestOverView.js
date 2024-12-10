@@ -44,7 +44,7 @@ const TestOverview = ({ title, chartData, onStartTest, isTestAvailable }) => {
       <Button
         title="Realizar Test"
         onPress={onStartTest}
-        disabled={!isTestAvailable}
+        disabled={isTestAvailable}
       />
     </View>
   );

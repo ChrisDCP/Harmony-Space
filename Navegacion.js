@@ -22,11 +22,12 @@ import AdminScreen from './Views/Admin'
 import Diary from './Views/Diary'
 import Relaxing from './Views/Relaxing'
 import MonthTest from './Views/MonthTest'
-import DayTest from './Views/DayTest'
+
 
 
 //context
 import { useUser } from './context/UserContext'
+import DailyTest from './Views/DayTest'
 
 
 // navigator const
@@ -83,7 +84,7 @@ function MyStack(){
 
       <StackNavigator.Screen 
       name="DailyTest" 
-      component={DayTest} 
+      component={DailyTest} 
       options={{ title: 'Test Diario' }} 
       />
 

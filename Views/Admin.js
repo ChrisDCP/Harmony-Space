@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PieChart, BarChart } from 'react-native-chart-kit';
+import { logOut } from '../servicios/databaseServices';
 
 const AdminScreen = () => {
   const [userData, setUserData] = useState([]);
@@ -9,13 +10,17 @@ const AdminScreen = () => {
 
   useEffect(() => {
     // Datos manuales
-    const mockUserData = [
-      { id: 'BEFZTD5e', name: 'Daniela', email: 'Dl355358@gmail.com', age: '23', country: 'Nicaragua', sex: 'Femenino' }
+const mockUserData = [
+      { name: 'Daniela', email: 'dl355358@gmail.com', role: 'Premium', occupation: 'Estudiante' },
+      { name: 'Summersun', email: 'christopherdarielc@gmail.com', role: 'Admin', occupation: 'Estudiante' },
+      { name: 'Oscar', email: 'martnezoscar26@gmail.com', role: 'Admin', occupation: 'Estudiante' },
+      { name: 'Jonathan', email: 'Jv2208674@gmail.com', role: 'Free', occupation: 'Estudiante' },
     ];
     setUserData(mockUserData);
 
     const mockTestResults = [
-      { month: '2024-12', monthlyScore: 28, dailyScore: 0 } // Simulando datos de pruebas
+      { month: '2024-12', monthlyScore: 28, dailyScore: 12 }, 
+      { month: '2024-12', monthlyScore: 0, dailyScore: 14 }
     ];
     setTestResults(mockTestResults);
   }, []);
@@ -31,16 +36,21 @@ const AdminScreen = () => {
 
   // Datos para el gráfico de barras
   const barData = {
-    labels: ['Dic 2024'],
+    labels: ['Nov 2024', 'Dic 2024'],
     datasets: [
-      { data: [28] }, // Puntuación mensual simulada
+      { data: [25,36
+        
+      ] }, 
     ],
   };
 
   return (
     <LinearGradient colors={['#4C1D95', '#5B21B6']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Panel de Administrador</Text>
+        <Text style={styles.title}>Buen dia señor admin</Text>
+        <TouchableOpacity onPress={()=>logOut()} style={{borderColor:'#000', borderWidth:1, borderRadius:20, width:100, height: 40, margin:5,alignSelf:'flex-end'}}>
+          <Text style={{color:'#fff', textAlign:'center', fontSize:16, fontWeight:'400'}}>Salir de admin</Text>
+        </TouchableOpacity>
 
         {/* Gráfico de pastel */}
         <View style={styles.section}>
@@ -95,18 +105,16 @@ const AdminScreen = () => {
                 <Text style={styles.tableHeader}>ID</Text>
                 <Text style={styles.tableHeader}>Nombre</Text>
                 <Text style={styles.tableHeader}>Email</Text>
-                <Text style={styles.tableHeader}>Edad</Text>
-                <Text style={styles.tableHeader}>País</Text>
-                <Text style={styles.tableHeader}>Sexo</Text>
+                <Text style={styles.tableHeader}>Rol</Text>
+                <Text style={styles.tableHeader}>Ocupacion</Text>
               </View>
               {userData.map((user, index) => (
                 <View key={index} style={styles.tableRow}>
-                  <Text style={styles.tableCell}>{user.id.substring(0, 8)}...</Text>
+                  <Text style={styles.tableCell}>{index + 1}</Text>
                   <Text style={styles.tableCell}>{user.name}</Text>
                   <Text style={styles.tableCell}>{user.email}</Text>
-                  <Text style={styles.tableCell}>{user.age}</Text>
-                  <Text style={styles.tableCell}>{user.country}</Text>
-                  <Text style={styles.tableCell}>{user.sex}</Text>
+                  <Text style={styles.tableCell}>{user.role}</Text>
+                  <Text style={styles.tableCell}>{user.occupation}</Text>
                 </View>
               ))}
             </View>
@@ -120,6 +128,7 @@ const AdminScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
   scrollContent: {
     padding: 20,
@@ -164,6 +173,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
     textAlign: 'center',
+    margin:2
   },
 });
 

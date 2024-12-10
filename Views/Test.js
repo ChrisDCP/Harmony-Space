@@ -31,6 +31,11 @@ const StressTrackingScreen = ({ navigation }) => {
     }
   }, [userId]);
 
+  const onStartTest = () => {
+
+
+  }
+
   return (
     <LinearGradient colors={['#2C27B4', '#e1e1f9']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -38,7 +43,6 @@ const StressTrackingScreen = ({ navigation }) => {
           <Text style={styles.title}>Seguimiento de Estrés</Text>
           <Text style={styles.subtitle}>Monitorea tu bienestar diario y mensual</Text>
         </View>
-
 
           <Text style={styles.cardTitle}>Test Diario</Text>
           <Text style={styles.cardDescription}>
@@ -58,7 +62,7 @@ const StressTrackingScreen = ({ navigation }) => {
           <TestOverview
             title="Resultados Mensuales"
             data={mainResults}
-            onPress={() => navigation.navigate("MainTest")}
+            onPress={() => navigation.navigate("MonthlyTest")}
           />
       </ScrollView>
     </LinearGradient>
