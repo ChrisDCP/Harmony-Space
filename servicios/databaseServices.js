@@ -39,33 +39,42 @@ export const getAudioUrl = async (audioPath) => {
 //funcion para obtener todos los usuarios
 export const fetchUsers = async () => {
   try {
-    const snapshot = await get(ref(db, 'users'));
+    const snapshot = await get(ref(db, 'users')); // Acceder a la colección de usuarios
     if (snapshot.exists()) {
-      return snapshot.val();
+      return snapshot.val(); // Devuelve los datos si existen
     } else {
-      console.log("No users found.");
-      return {};
+      console.log("No hay usuarios registrados.");
+      return {}; // Si no hay usuarios, se devuelve un objeto vacío
     }
   } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error;
+    console.error("Error al obtener los usuarios:", error);
+    throw error; // Si ocurre un error, lo lanzamos para manejarlo en otro lugar
   }
 };
 
-//funcion para actualizar un usuario
+// Función para actualizar un usuario
 export const updateUser = async (userId, updatedData) => {
   try {
-    await update(ref(db, `users/${userId}`), updatedData);
-    console.log("User updated successfully.");
+    await update(ref(db, `users/${userId}`), updatedData); // Actualiza los datos del usuario en la base de datos
+    console.log("Usuario actualizado correctamente.");
   } catch (error) {
-    console.error("Error updating user:", error);
-    throw error;
+    console.error("Error al actualizar el usuario:", error);
+    throw error; // Si ocurre un error, lo lanzamos para manejarlo en otro lugar
+  }
+};
+
+// Función para eliminar un usuario
+export const deleteUser = async (userId) => {
+  try {
+    await remove(ref(db, `users/${userId}`)); // Elimina el usuario de la base de datos
+    console.log("Usuario eliminado correctamente.");
+  } catch (error) {
+    console.error("Error al eliminar el usuario:", error);
+    throw error; // Si ocurre un error, lo lanzamos para manejarlo en otro lugar
   }
 };
 
 // Función para obtener los resultados diarios
-
-
 export const fetchDailyResults = async (userId) => {
   if (!userId) throw new Error("El userId es necesario para cargar los resultados diarios.");
   console.log(userId)
