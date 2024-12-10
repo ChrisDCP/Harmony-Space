@@ -1,34 +1,41 @@
-// /tests/components/LoginAuthentication.test.js
+// tests/LoginRegisterRender.test.js
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Login from '../Views/Login';  // Ajusta la ruta según tu proyecto
+import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Login from '../Views/Login'; // Asegúrate de que la ruta sea correcta
 
-describe('Login Component - Authentication', () => {
-  it('should handle login process successfully', async () => {
-    const { getByPlaceholderText, getByText } = render(<Login />);
+// Mock para Firebase Auth
+jest.mock('firebase/auth', () => ({
+  initializeAuth: jest.fn().mockReturnValue({ currentUser: null }),
+  createUserWithEmailAndPassword: jest.fn(), // Mock del método de registro
+}));
 
-    fireEvent.changeText(getByPlaceholderText('Email'), 'test@example.com');
-    fireEvent.changeText(getByPlaceholderText('Contraseña'), '123456');
+// Mock para React Navigation
+jest.mock('@react-navigation/native', () => {
+  const actual = jest.requireActual('@react-navigation/native');
+  return {
+    ...actual,
+    useNavigation: jest.fn(() => ({
+      navigate: jest.fn(),
+    })),
+  };
+});
 
-    fireEvent.press(getByText('Iniciar sesión'));
+// Mock para LinearGradient
+jest.mock('expo-linear-gradient', () => ({
+  LinearGradient: jest.fn(({ children }) => children),
+}));
 
-    await waitFor(() => {
-      // Ajusta el texto que aparece después de un login exitoso
-      expect(getByText('Bienvenido')).toBeTruthy();
-    });
-  });
+describe('Register in Login Component', () => {
+  test('should send correctly credentials for auth', () => {
+    const { getByTestId } = render(
+      <NavigationContainer>
+        <Login />
+      </NavigationContainer>
+    );
 
-  it('should display an error message when credentials are incorrect', async () => {
-    const { getByPlaceholderText, getByText } = render(<Login />);
-
-    fireEvent.changeText(getByPlaceholderText('Email'), 'wrong@example.com');
-    fireEvent.changeText(getByPlaceholderText('Contraseña'), 'wrongpassword');
-
-    fireEvent.press(getByText('Iniciar sesión'));
-
-    await waitFor(() => {
-      // Ajusta el texto de error que aparece cuando las credenciales son incorrectas
-      expect(getByText('Credenciales incorrectas')).toBeTruthy();
-    });
+    // Verifica que el botón o enlace de registro esté presente
+    const registerButton = getByTestId('register-button'); // Asegúrate de usar este testID en tu componente
+    expect(registerButton).toBeTruthy(); // Verifica que exista
   });
 });

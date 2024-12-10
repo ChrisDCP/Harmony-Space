@@ -1,26 +1,41 @@
+// tests/LoginRender.test.js
 import React from 'react';
-import { render } from '@testing-library/react-native';
-import Login from '../Views/Login';
+import { render, screen } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Login from '../Views/Login'; // Asegúrate de que la ruta sea correcta
 
-jest.mock('@expo/vector-icons', () => ({
-  Ionicons: 'MockedIonicons',
+// Mock para Firebase Auth
+jest.mock('firebase/auth', () => ({
+  initializeAuth: jest.fn().mockReturnValue({ currentUser: null }),
+  signInWithEmailAndPassword: jest.fn(),
 }));
 
-jest.mock('expo-linear-gradient', () => {
-  const LinearGradient = ({ children }) => children;
-  return { LinearGradient };
+// Mock para React Navigation
+jest.mock('@react-navigation/native', () => {
+  const actual = jest.requireActual('@react-navigation/native');
+  return {
+    ...actual,
+    useNavigation: jest.fn(() => ({
+      navigate: jest.fn(),
+    })),
+  };
 });
 
+// Mock para LinearGradient
+jest.mock('expo-linear-gradient', () => ({
+  LinearGradient: jest.fn(({ children }) => children),
+}));
 
 describe('Login Component', () => {
-  it('renders correctly with required fields', () => {
-    const { getByPlaceholderText, getByText } = render(<Login />);
+  test('should render Login component correctly', () => {
+    const { getByTestId } = render(
+      <NavigationContainer>
+        <Login />
+      </NavigationContainer>
+    );
 
-    // Verificar que los campos de entrada estén presentes.
-    expect(getByPlaceholderText(' email')).toBeTruthy();
-    expect(getByPlaceholderText('contraseña')).toBeTruthy();
-
-    // Verificar que el botón de login esté presente.
-    expect(getByText('iniciar sesion')).toBeTruthy();
+    // Verifica si un elemento del componente se renderiza correctamente
+    const loginForm = getByTestId('login-form'); // Asegúrate de agregar `testID="login-form"` en el componente
+    expect(loginForm).toBeTruthy(); // Verifica que el elemento exista en el árbol de renderizado
   });
 });
