@@ -4,7 +4,7 @@ import Constants from "expo-constants";
 
 
 // Extraer la API Key desde las variables de entorno
-const apiKey = "AIzaSyCvrN5yfEuQeWZnG-ZY8LJSEV1QvYd1_3o"
+const apiKey = process.env.geminiapikey
 
 // Crear instancia del modelo con las instrucciones
 const genAI = new GoogleGenerativeAI(apiKey);
