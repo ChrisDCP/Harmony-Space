@@ -1,7 +1,4 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import Constants from "expo-constants";
-
-
 
 // Extraer la API Key desde las variables de entorno
 const apiKey = process.env.geminiapikey
